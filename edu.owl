@@ -25,11 +25,17 @@
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
     "@value" : "When linking a time instant of the video with a word of the associated ConLL file, specifies the sent_id of the sentence the associated word is part of. Must be paired with the conllWordId property to specify the word."
   } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.edurell.com/edu#InstantSelector"
+  } ],
   "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
     "@value" : "http://www.edurell.com/edu#"
   } ],
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@value" : "conllSentId"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
   } ]
 }, {
   "@id" : "http://www.edurell.com/edu#conllWordId",
@@ -37,14 +43,17 @@
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
     "@value" : "When linking a time instant of the video with a word of the associated ConLL file, specifies the ID of the associated word. Must be paired with the conllSentId property to specify the sentence referred to."
   } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.edurell.com/edu#InstantSelector"
+  } ],
   "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
     "@value" : "http://www.edurell.com/edu#"
   } ],
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@value" : "conllWordId"
   } ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://www.w3.org/2002/07/owl#topDataProperty"
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
   } ]
 }, {
   "@id" : "http://www.edurell.com/edu#linkingConll",
