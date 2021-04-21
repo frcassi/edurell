@@ -1184,9 +1184,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p>Educational videos represent one of the most popular formats in online education, but they can also suffer of several limitations. They can for instance be lengthy and thus hard to navigate when you need to recall concepts; besides, they generally lack explicit tables of contents or other indexing systems for exploring the video content.</p>
 
-    <p>To solve this problem, the first step is to have an effective representation of the content of the video, with a data model which is able to encode both concepts which are explained and evolving relations between them, relating concepts with their prerequisite (weak or strong).</p>
+    <p>To solve this problem, the first step is to have an effective representation of the content of the video, with a data model which is able to encode both concepts which are explained in it and evolving relations between them, relating concepts with their prerequisite (weak or strong).</p>
 
-    <p>The Edurell Data Model describes a structured model to annotate video resources with the concepts which are explained and with prerequisite relationships between those concepts. This data model is mainly based on the use of the Web Annotation Ontology [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>], extended with some classes and properties belonging to the newly-developed Edu ontology [<cite><a class="bibref" href="#bib-edu-ontology">edu-ontology</a></cite>].</p>
+    <p>The Edurell Data Model describes a structured model to annotate video resources with the concepts which are explained and with prerequisite relationships between those concepts. This data model is mainly based on the use of the Web Annotation Ontology [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>], extended with some classes and properties belonging to the newly-developed Edurell Ontology [<cite><a class="bibref" href="#bib-edu-ontology">edu-ontology</a></cite>].</p>
 
   </section>
 
@@ -1264,7 +1264,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <p><em>This section is non-normative.</em></p>
 
     <p>
-      The specification is divided into two major sections: the terms defined in the Web Annotation ontology, and terms from other ontologies used in the model.
+      The specification is divided into two major sections: the terms defined in the Edurell Ontology, and terms from other ontologies used in the model.
     </p>
 
     <p>
@@ -1380,10 +1380,34 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </h3>
 
       <dl>
+
         <dt><dfn data-dfn-type="dfn" id="dfn-iri">IRI</dfn></dt>
         <dd>An <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a>, or Internationalized Resource Identifier, is an extension to the URI specification to allow characters from Unicode, whereas URIs must be made up of a subset of ASCII characters. There is a mapping algorithm for translating between IRIs and the equivalent encoded URI form. IRIs are defined by [<cite><a class="bibref" href="#bib-rfc3987">rfc3987</a></cite>].</dd>
+
         <dt><dfn data-dfn-type="dfn" id="dfn-resource">Resource</dfn></dt>
         <dd>An item of interest that <em class="rfc2119" title="MAY">MAY</em> be identified by an <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a>.</dd>
+
+        <dt><dfn data-dfn-type="dfn" id="dfn-web-resource">Web Resource</dfn></dt>
+        <dd>A <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a> that <em class="rfc2119" title="MUST">MUST</em> be identified by an <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a>, as described in the Web Architecture [<cite><a class="bibref" href="#bib-webarch">webarch</a></cite>]. Web Resources <em class="rfc2119" title="MAY">MAY</em> be dereferencable via their IRI.</dd>
+
+        <dt><dfn data-dfn-type="dfn" id="dfn-external-web-resource">External Web Resource</dfn></dt>
+        <dd>A <a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn">Web Resource</a> which is not part of the representation of the Annotation, such as a web page, image, or video. External Web Resources are dereferencable from their <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a>.</dd>
+
+        <dt><dfn data-dfn-type="dfn" id="dfn-property">Property</dfn></dt>
+        <dd>A feature of a <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a>, that often has a particular data type. In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a href="#dfn-relationship" class="internalDFN" data-link-type="dfn">Relationships</a> and instead have a literal value such as a string, integer or date. The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
+
+        <dt><dfn data-dfn-type="dfn" id="dfn-relationship">Relationship</dfn></dt>
+        <dd>In the model sections, the term "Relationship" is used to distinguish those features that refer to other <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resources</a>, either by reference to the <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a>'s <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a> or by including a description of the <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a> in the Annotation's representation. The valid values for a Relationship are: a quoted string containing an IRI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
+
+        <dt><dfn data-dfn-type="dfn" id="dfn-class">Class</dfn></dt>
+        <dd><a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resources</a> may be divided, conceptually, into groups called "classes"; members of a class are known as <a href="#dfn-instance" class="internalDFN" data-link-type="dfn">Instances</a> of the class. Resources are associated with a particular class through <a href="#dfn-type" class="internalDFN" data-link-type="dfn">typing</a>. Classes are identified by <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRIs</a>, i.e., they are also <a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn">Web Resources</a> themselves.</dd>
+
+        <dt><dfn data-dfn-type="dfn" id="dfn-type">Type</dfn></dt>
+        <dd>A special <a href="#dfn-relationship" class="internalDFN" data-link-type="dfn">Relationship</a> that associates an <a href="#dfn-instance" class="internalDFN" data-link-type="dfn">Instance</a> of a class to the <a href="#dfn-class" class="internalDFN" data-link-type="dfn">Class</a> it belongs to.</dd>
+
+        <dt><dfn data-dfn-type="dfn" id="dfn-instance">Instance</dfn></dt>
+        <dd>An element of a group of <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resources</a> represented by a particular <a href="#dfn-class" class="internalDFN" data-link-type="dfn">Class</a>.</dd>
+
       </dl>
 
       <div class="note">
@@ -1399,7 +1423,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   </section>
   <!-- End Introduction -->
 
-  <!-- Edurell Annotations -->
+  <!-- 2. Edurell Annotations -->
   <section id="edurell-annotations" typeof="bibo:Chapter" resource="#edurell-annotations" property="bibo:hasPart">
     <h2 id="h-edurell-annotations" resource="#h-edurell-annotations"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>Edurell Annotations</span>
     </h2>
@@ -1417,7 +1441,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </p>
 
     <p>
-      A specific instant of the video, identified through an <a href="#instantselector"><code>InstantSelector</code></a>, may be annotated to specify a prerequisite relation existing with another concept by using a <a href="#annotation-prerequisite">Prerequisite Annotation</a>.
+      A specific instant of the video, identified through an <a href="#instantselector"><code>InstantSelector</code></a>, may be annotated to specify a prerequisite relation with another concept existing from that time by using a <a href="#annotation-prerequisite">Prerequisite Annotation</a>.
     </p>
 
     <!-- 2.1 ConLL Annotation -->
@@ -1438,41 +1462,40 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <tr>
             <th>Property</th>
             <th>Value or <code>Range</code></th>
-            <th>Required</th>
             <th>Description</th>
           </tr>
           <tr>
             <td>rdf:type</td>
             <td>oa:Annotation</td>
-            <td>✔︎</td>
             <td>Each annotation <em class="rfc2119" title="MUST">MUST</em> be of class <a href="https://www.w3.org/TR/annotation-vocab/#annotation"><code>oa:Annotation</code></a> according to the Web Annotation specification [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>]. 
               <br>Properties other than those expressed here <em class="rfc2119" title="MAY">MAY</em> be added according to the original documentation.</td>
           </tr>
           <tr>
             <td>oa:motivatedBy</td>
             <td>edu:linkingConll</td>
-            <td>✔︎</td>
-            <td>A ConLL Annotation <em class="rfc2119" title="MUST">MUST</em> have exactly 1 motivation corresponding to <a href="#motivation-linkingconll"><code>edu:linkingConll</code></a>, which extends the original oa:linking motivation from [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>].
+            <td>A ConLL Annotation <em class="rfc2119" title="MUST">MUST</em> have exactly 1 motivation corresponding to <a href="#motivation-linkingconll"><code>edu:linkingConll</code></a>, which extends the original <a href="https://www.w3.org/TR/annotation-vocab/#linking"><code>oa:linking</code></a> motivation from [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>].
             </td>
           </tr>
           <tr>
             <td>oa:hasBody</td>
             <td><code>dctypes:Text</code></td>
-            <td>✔︎</td>
             <td>A video <em class="rfc2119" title="MAY">MAY</em> have a single ConLL file associated, thus a ConLL Annotation <em class="rfc2119" title="MUST">MUST</em> a have a single Body representing a ConLL file. Its type <em class="rfc2119" title="SHOULD">SHOULD</em> be <code>dctypes:Text</code>. If an associated ConLL file does not exist, no ConLL annotations for that video should exist.
             </td>
           </tr>
           <tr>
             <td>oa:hasTarget</td>
             <td><code>dctypes:MovingImage</code></td>
-            <td>✔︎</td>
             <td>Each ConLL file represents the transscription of a single video, thus a ConLL Annotation <em class="rfc2119" title="MUST">MUST</em> have a single Target representing a ConLL file. Its type <em class="rfc2119" title="SHOULD">SHOULD</em> be <code>dctypes:MovingImage</code>. If an associated ConLL file does not exist, no ConLL annotations for that video should exist.
             </td>
           </tr>
         </tbody>
       </table>
 
-      <h4 id="example-1">Example</h4>
+      <h4 id="example-1">Complete example</h4>
+
+      <div class="diagram_img">
+        <img src="images/annotation-conll-full.png" alt="concept annotation" longdesc="#annotation-concept">
+      </div>
 
       <div id="example_anno">
         <div class="example">
@@ -1501,7 +1524,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </h3>
       <p>
         A video lesson, but more in general every long-form informative content, may be about different concepts, which are developed along the content. Concepts may intertwine with one another, so that some parts of the resource may be about more than one concept at a time.
-        <br> The Concept Annotation is used to annotate a portion of the video with the concept it's about. The combination of all annotations of this type provides a complete map of all concepts which are explained, with the possibility for concepts to be repeated throughout the video.
+      </p>
+      <p>
+        The Concept Annotation is used to annotate a portion of the video with the concept it's about. The combination of all annotations of this type provides a complete map of all concepts which are explained, with the possibility for concepts to be repeated throughout the video.
       </p>
       <div class="diagram_img">
         <img src="images/annotation-concept.png" alt="concept annotation" longdesc="#annotation-concept">
@@ -1513,34 +1538,29 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <tr>
             <th>Property</th>
             <th>Value or <code>Range</code></th>
-            <th>Required</th>
             <th>Description</th>
           </tr>
           <tr>
             <td>rdf:type</td>
             <td>oa:Annotation</td>
-            <td>✔︎</td>
-            <td>Each annotation <em class="rfc2119" title="MUST">MUST</em> be of class oa:Annotation according to the Web Annotation specification [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>]. 
+            <td>Each annotation <em class="rfc2119" title="MUST">MUST</em> be of class <a href="https://www.w3.org/TR/annotation-vocab/#annotation"><code>oa:Annotation</code></a> according to the Web Annotation specification [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>]. 
               <br>Properties other than those expressed here <em class="rfc2119" title="MAY">MAY</em> be added according to the original documentation.</td>
           </tr>
           <tr>
             <td>oa:motivatedBy</td>
             <td>oa:describing</td>
-            <td>✔︎</td>
-            <td>A Concept Annotation <em class="rfc2119" title="MUST">MUST</em> have exactly 1 motivation corresponding to oa:describing, which is used because this kind of annotation has the goal of describing the concept explained in the selected section.
+            <td>A Concept Annotation <em class="rfc2119" title="MUST">MUST</em> have exactly 1 motivation corresponding to <a href="https://www.w3.org/TR/annotation-vocab/#describing"><code>oa:describing</code></a>, which is used because this kind of annotation has the goal of describing the concept explained in the selected section.
             </td>
           </tr>
           <tr>
             <td>oa:hasBody</td>
             <td><code>skos:Concept</code></td>
-            <td>✔︎</td>
             <td>The concept which is the topic of the annotated segment. Each portion of the video <em class="rfc2119" title="MAY">MAY</em> be associated with 1 or more concepts.
             </td>
           </tr>
           <tr>
             <td>oa:hasTarget</td>
             <td><code>oa:SpecificResource</code></td>
-            <td>✔︎</td>
             <td>The segment of the video (and, optionally, the associated portion of text) of which the annotation states the topic. Check out <a href="#annotation-concept-target">2.2.1 Target</a>
             </td>
           </tr>
@@ -1551,7 +1571,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <h4 id="h-annotation-concept-target" resource="#h-annotation-concept-target"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.2.1 </span>Target</span>
         </h4>
 
-        <p>Each Concept Annotation <em class="rfc2119" title="MUST">MUST</em> have 1 or more Targets of type oa:SpecificResource. Multiple targets are to be intended as multiple segments of one ore more resources that are associated with the same concept. If this is the case, multiple annotations can also be used instead. </p>
+        <p>Each Concept Annotation <em class="rfc2119" title="MUST">MUST</em> have 1 or more Targets of type <a href="https://www.w3.org/TR/annotation-vocab/#specificresource"><code>oa:SpecificResource</code></a>. Multiple targets are to be intended as multiple segments of one ore more resources that are associated with the same concept. If this is the case, multiple annotations can also be used instead. </p>
         <p>The Target is used to identify both the video resource which is being annotated and the specific portion of the video.</p>
 
         <div class="diagram_img">
@@ -1565,27 +1585,23 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
             <tr>
               <th>Term</th>
               <th>Value or <code>Range</code></th>
-              <th>Required</th>
-              <th>Description</th>
+                <th>Description</th>
             </tr>
             <tr>
               <td>rdf:type</td>
               <td>oa:SpecificResource</td>
-              <td>✔︎</td>
-              <td>The class of the Target. Each Concept Annotation <em class="rfc2119" title="MUST">MUST</em> have exactly 1 Target of type oa:SpecificResource, according to the Web Annotation specification [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>]. 
+                <td>The class of the Target. Each Concept Annotation <em class="rfc2119" title="MUST">MUST</em> have exactly 1 Target of type oa:SpecificResource, according to the Web Annotation specification [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>]. 
                 <br>Properties other than those expressed here <em class="rfc2119" title="MAY">MAY</em> be added according to the original documentation.</td>
             </tr>
             <tr>
               <td>oa:hasSource</td>
               <td><code>dctypes:MovingImage</code></td>
-              <td>✔︎</td>
-              <td>The original video resource the annotated segment is part of. Each Concept Annotation Target <em class="rfc2119" title="MUST">MUST</em> have exactly 1 video resource as Source. A ConLL file describing the video transcription <em class="rfc2119" title="MAY">MAY</em> be associated to the video using a <a href="#annotation-conll">ConLL Annotation</a>.</td>
+                <td>The original video resource the annotated segment is part of. Each Concept Annotation Target <em class="rfc2119" title="MUST">MUST</em> have exactly 1 video resource as Source. A ConLL file describing the video transcription <em class="rfc2119" title="MAY">MAY</em> be associated to the video using a <a href="#annotation-conll">ConLL Annotation</a>.</td>
             </tr>
             <tr>
               <td>oa:hasSelector</td>
               <td><code>oa:RangeSelector</code></td>
-              <td>✔︎</td>
-              <td>A RangeSelector is used to select the beginning and end instants of the segment this annotation refers to. 
+                <td>A RangeSelector is used to select the beginning and end instants of the segment this annotation refers to. 
                 A more accurate description of how to use this selector within this ontology is provided at <a href="#selector-range">3.2 RangeSelector</a>. See also the original documentation [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>].</td>
             </tr>
           </tbody>
@@ -1642,7 +1658,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>
         A video lesson, but more in general every long-form informative content, is made up of different concepts evolving over time, which may be linked by relationships of prerequisite, so that one or more concepts may be needed to understand another. These relationships may evolve over time as well, so that a concept might gain new prerequisites along the explanation, or a prerequisite may change strength, for example when a concept is first introduced in a general way, then explained in more detail.
       </p><p>
-        The Prerequisite Annotation allows to state a prerequisite relationships existing at a specific point in the video, with an indication of its strength (either strong or weak). The specific term which is being annotated (i.e. the concept the prerequisite is associated with) may also be directly linked with a specific word in the transcription of the video by using the appropriate conll properties of InstantSelector. Check <a href="#selector-instant">3.2.1 InstantSelector</a> for more information.
+        The Prerequisite Annotation allows to state a prerequisite relationship existing at a specific point in the video, with an indication of its strength (either strong or weak). The specific term which is being annotated (i.e. the concept the prerequisite is associated with) may also be directly linked with a specific word in the transcription of the video by using the appropriate conll properties of InstantSelector. Check <a href="#selector-instant">3.2.1 InstantSelector</a> for more information.
       </p>
       <div class="diagram_img">
         <img src="images/annotation-prerequisite.png" alt="conll annotation" longdesc="#annotation-conll">
@@ -1655,42 +1671,36 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <tr>
             <th>Property</th>
             <th>Value or <code>Range</code></th>
-            <th>Required</th>
             <th>Description</th>
           </tr>
           <tr>
             <td>rdf:type</td>
             <td>oa:Annotation</td>
-            <td>✔︎</td>
             <td>Each annotation <em class="rfc2119" title="MUST">MUST</em> be of class <a href="https://www.w3.org/TR/annotation-vocab/#annotation"><code>oa:Annotation</code></a> according to the Web Annotation specification [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>]. 
               <br>Properties other than those expressed here <em class="rfc2119" title="MAY">MAY</em> be added according to the original documentation.</td>
           </tr>
           <tr>
             <td>oa:motivatedBy</td>
             <td>edu:linkingPrerequisite</td>
-            <td>✔︎</td>
-            <td>A Prerequisite Annotation <em class="rfc2119" title="MUST">MUST</em> have exactly 1 motivation corresponding to <a href="#motivation-linkingprerequisite"><code>edu:linkingPrerequisite</code></a>, which extends the original oa:linking motivation from [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>].
+            <td>A Prerequisite Annotation <em class="rfc2119" title="MUST">MUST</em> have exactly 1 motivation corresponding to <a href="#motivation-linkingprerequisite"><code>edu:linkingPrerequisite</code></a>, which extends the original <a href="https://www.w3.org/TR/annotation-vocab/#linking"><code>oa:linking</code></a> motivation from [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>].
             </td>
           </tr>
           <tr>
             <td>oa:hasBody</td>
             <td><code>skos:Concept</code></td>
-            <td>✔︎</td>
-            <td>The concept which is a prerequisite of the Target. Each Concept Annotation <em class="rfc2119" title="MAY">MAY</em> have 1 or more bodies, if the target concept (as selected by the InstantSelector of the Target) has multiple prerequisite relationships of same strength.
+            <td>The concept which is a prerequisite of the Target. Each Concept Annotation <em class="rfc2119" title="MAY">MAY</em> have 1 or more bodies, if the target concept (as selected by the <a href="selector-instant"><code>InstantSelector</code></a> of the Target) has multiple prerequisite relationships of same strength at the same time.
             </td>
           </tr>
           <tr>
             <td>oa:hasTarget</td>
             <td><code>oa:SpecificResource</code></td>
-            <td>✔︎</td>
             <td>The concept the prerequisite is associated with. Also used to state the instant in the video (and, optionally, the specific word in the associated ConLL file) where the relationship is intantiated. Check out <a href="#annotation-prerequisite-target">2.3.1 Target</a>
             </td>
           </tr>
           <tr>
             <td>skos:note</td>
             <td>"strongPrerequisite" <i>or</i> "weakPrerequisite"</td>
-            <td>✔︎</td>
-            <td>A literal expressing the strength of the prerequisite relationship for the target concept at the time of the video selected by the InstantSelector. Since a prerequisite relationship, once instantiated at a point of the video, is intended to remain valid until the end, a "weakPrerequisite" <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> be stated between the same concepts previously linked by a "strongPrerequisite" relationships.
+            <td>A literal expressing the strength of the prerequisite relationship for the target concept at the time of the video selected by the <a href="selector-instant"><code>InstantSelector</code></a>. Since a prerequisite relationship, once instantiated at a point of the video, is intended to remain valid until the end, a "weakPrerequisite" <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> be stated between the same concepts previously linked by a "strongPrerequisite" relationships.
             </td>
           </tr>
         </tbody>
@@ -1705,7 +1715,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <h4 id="h-annotation-prerequisite-target" resource="#h-annotation-prerequisite-target"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.3.1 </span>Target</span>
         </h4>
 
-        <p>Each Prerequisite Annotation <em class="rfc2119" title="MUST">MUST</em> have 1 or more Targets of type oa:SpecificResource. Multiple targets are to be intended as multiple segments of one ore more resources that are associated with the same concept. If this is the case, multiple annotations can also be used instead.</p>
+        <p>Each Prerequisite Annotation <em class="rfc2119" title="MUST">MUST</em> have 1 or more Targets of type <a href="https://www.w3.org/TR/annotation-vocab/#specificresource"><code>oa:SpecificResource</code></a>. Multiple targets are to be intended as multiple segments of one ore more resources that are associated with the same prerequisite. If this is the case, multiple annotations can also be used instead.</p>
         <p>
           The Target is used to identify both the concept which is being annotated, i.e., the concept for which the annotation states a prerequisite, and its position within the video resource (and, optionally, the linked ConLL file).
         </p>
@@ -1720,33 +1730,28 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
             <tr>
               <th>Term</th>
               <th>Value or <code>Range</code></th>
-              <th>Required</th>
-              <th>Description</th>
+                <th>Description</th>
             </tr>
             <tr>
               <td>rdf:type</td>
               <td>oa:SpecificResource</td>
-              <td>✔︎</td>
-              <td>The class of the Target. Each Prerequisite Annotation <em class="rfc2119" title="MUST">MUST</em> have exactly 1 Target of type oa:SpecificResource, according to the Web Annotation specification [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>]. 
+                <td>The class of the Target. Each Prerequisite Annotation <em class="rfc2119" title="MUST">MUST</em> have exactly 1 Target of type <a href="https://www.w3.org/TR/annotation-vocab/#specificresource"><code>oa:SpecificResource</code></a>, according to the Web Annotation specification [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>]. 
                 <br>Properties other than those expressed here <em class="rfc2119" title="MAY">MAY</em> be added according to the original documentation.</td>
             </tr>
             <tr>
               <td>dcterms:subject</td>
               <td><code>skos:Concept</code></td>
-              <td>✔︎</td>
-              <td>The concept which is being annotated, i.e., the concept for which the annotation states a prerequisite. Each Prerequisite Annotation Target <em class="rfc2119" title="MUST">MUST</em> annotate exactly 1 concept.</td>
+                <td>The concept which is being annotated, i.e., the concept for which the annotation states a prerequisite. Each Prerequisite Annotation Target <em class="rfc2119" title="MUST">MUST</em> annotate exactly 1 concept.</td>
             </tr>
             <tr>
               <td>oa:hasSource</td>
               <td><code>dctypes:MovingImage</code></td>
-              <td>✔︎</td>
-              <td>The original video resource the annotated concept is part of. Each Prerequisite Annotation Target <em class="rfc2119" title="MUST">MUST</em> have exactly 1 video resource as Source. A ConLL file describing the video transcription <em class="rfc2119" title="MAY">MAY</em> be associated to the video using a <a href="#annotation-conll">ConLL Annotation</a>.</td>
+                <td>The original video resource the annotated concept is part of. Each Prerequisite Annotation Target <em class="rfc2119" title="MUST">MUST</em> have exactly 1 video resource as Source. A ConLL file describing the video transcription <em class="rfc2119" title="MAY">MAY</em> be associated to the video using a <a href="#annotation-conll">ConLL Annotation</a>.</td>
             </tr>
             <tr>
               <td>oa:hasSelector</td>
               <td><code>oa:RangeSelector</code></td>
-              <td>✔︎</td>
-              <td>An <a href="#selector-instant">InstantSelector</a> is used to select the specific instant in the video (and, optionally, the specific word in the associated ConLL file) this annotation refers to. The annotated instant must correspond to a point in the video where the target concept,i.e., the concept for which the annotation states a prerequisite, is present, either visually or in the audio track.
+                <td>An <a href="#selector-instant"><code>InstantSelector</code></a> is used to select the specific instant in the video (and, optionally, the specific word in the associated ConLL file) this annotation refers to. The annotated instant must correspond to a point in the video where the target concept, i.e., the concept for which the annotation states a prerequisite, is present, either visually or in the audio track.
             </tr>
           </tbody>
         </table>
@@ -1799,7 +1804,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="h-annotation-additional" resource="#h-annotation-additional"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.4 </span>Additional lifecycle properties</span>
       </h3>
       <p>
-        It is suggested to associate each annotation with appropriate <a href="https://www.w3.org/TR/annotation-model/#lifecycle-information">Lifecycle Information</a>, according to the original Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>].
+        It is suggested to associate each annotation with appropriate <a href="https://www.w3.org/TR/annotation-model/#lifecycle-information">Lifecycle Information</a>, according to the original Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>].
       </p>
       <div class="diagram_img">
         <img src="images/annotation-lifecycle.png" alt="additional lifecycle information for annotations" longdesc="#annotation-additional"> 
@@ -1815,14 +1820,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </h2>
 
     <p>
-      The Edurell Data Model makes use of two Selectors: edu:InstantSelector, declared by the Edurell Ontology, which is used to select a specific instant in the video (and, optionally, a specific word in the associated ConLL file and a region in a video frame), and oa:RangeSelector, which combines two InstantSelectors to identify a segment of the video.
+      The Edurell Data Model makes use of two Selectors: <a href="#selector-instant"><code>edu:InstantSelector</code></a>, declared by the Edurell Ontology, which is used to select a specific instant in the video (and, optionally, a specific word in the associated ConLL file and a region in a video frame), and <a href="#selector-range"><code>oa:RangeSelector</code></a>, which combines two InstantSelectors to identify a segment of the video.
 
     <!-- 3.1 InstantSelector -->
     <section id="selector-instant" typeof="bibo:Chapter" resource="#selector-instant" property="bibo:hasPart">
       <h3 id="h-selector-instant" resource="#h-selector-instant"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1 </span>InstantSelector</span>
       </h3>
       <p>
-        The Edurell Ontology declares a custom edu:InstantSelector to select a specific instant in the video. The custom selector also has additional optional properties that may be used to link a time instant of the video with the corresponding word in a ConLL file associated to the video resource through a <a href="#annotation-conll">ConLL Annotation</a>.
+        The Edurell Ontology declares a custom <code>edu:InstantSelector</code> to select a specific instant in the video. The custom selector also has additional optional properties that may be used to link a time instant of the video with the corresponding word in a ConLL file associated to the video resource through a <a href="#annotation-conll">ConLL Annotation</a>.
       </p>
 
       <div class="tech">
@@ -1868,7 +1873,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <section class="term" id="selector-instant-conllsentid" typeof="bibo:Chapter" resource="#selector-instant-conllsentid" property="bibo:hasPart">
         <h3 id="h-list" resource="#h-list"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1.3 </span>edu:conllSentId</span>
         </h3>
-        <p>Optional property. When a ConLL file is associated to the video resource through a <a href="#annotation-conll"><code>ConLL Annotation</code></a>, this property is used together with <a href="#selector-instant-conllwordid"><code>edu:conllWordId</code></a> to associate a specific word in the ConLL file with the selected time instant of the video. This property <em class="rfc2119" title="MUST NOT">MUST NOT</em> if no <a href="#annotation-conll"><code>ConLL Annotation</code></a> exists for the current video.</p>  
+        <p>Optional property. When a ConLL file is associated to the video resource through a <a href="#annotation-conll"><code>ConLL Annotation</code></a>, this property is used together with <a href="#selector-instant-conllwordid"><code>edu:conllWordId</code></a> to associate a specific word in the ConLL file with the selected time instant of the video. This property <em class="rfc2119" title="MUST NOT">MUST NOT</em> be present if no <a href="#annotation-conll"><code>ConLL Annotation</code></a> exists for the current video.</p>  
         <p>This property corresponds to the <code>sent_id</code> value of the ConLL file, identifying the sentence the selected word is part of. If the <a href="#selector-instant-conllwordid"><code>edu:conllWordId</code></a> property is present, then <code>edu:conllSentId</code> <em class="rfc2119" title="MUST">MUST</em> be present as well, and vice-versa.</p>
   
         <div class="tech">
@@ -1883,7 +1888,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <section class="term" id="selector-instant-conllwordid" typeof="bibo:Chapter" resource="#selector-instant-conllwordid" property="bibo:hasPart">
         <h3 id="h-list" resource="#h-list"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1.4 </span>edu:conllWordId</span>
         </h3>
-        <p>Optional property. When a ConLL file is associated to the video resource through a <a href="#annotation-conll"><code>ConLL Annotation</code></a>, this property is used together with <a href="#selector-instant-conllsentid"><code>edu:conllSentId</code></a> to associate a specific word in the ConLL file with the selected time instant of the video. This property <em class="rfc2119" title="MUST NOT">MUST NOT</em> if no <a href="#annotation-conll"><code>ConLL Annotation</code></a> exists for the current video.</p> 
+        <p>Optional property. When a ConLL file is associated to the video resource through a <a href="#annotation-conll"><code>ConLL Annotation</code></a>, this property is used together with <a href="#selector-instant-conllsentid"><code>edu:conllSentId</code></a> to associate a specific word in the ConLL file with the selected time instant of the video. This property <em class="rfc2119" title="MUST NOT">MUST NOT</em> be present if no <a href="#annotation-conll"><code>ConLL Annotation</code></a> exists for the current video.</p> 
         <p>This property corresponds to the <code>ID</code> value of a word in the ConLL file, inside of the sentence identified by the <a href="#selector-instant-conllsentid"><code>edu:conllSentId</code></a> property. If the <a href="#selector-instant-conllsentid"><code>edu:conllSentId</code></a> property is present, then <code>edu:conllWordId</code> <em class="rfc2119" title="MUST">MUST</em> be present as well, and vice-versa.</p>
   
         <div class="tech">
@@ -1931,26 +1936,22 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <tr>
             <th>Property</th>
             <th>Value or <code>Range</code></th>
-            <th>Required</th>
             <th>Description</th>
           </tr>
           <tr>
             <td>rdf:type</td>
             <td>oa:Annotation</td>
-            <td>✔︎</td>
             <td><code>RangeSelector</code> is part of the Web Annotation Ontology [<cite><a class="bibref" href="#bib-annotation-ontology">annotation-ontology</a></cite>].
               <br>Properties other than those expressed here <em class="rfc2119" title="MAY">MAY</em> be added according to the original documentation.</td>
           </tr>
           <tr>
             <td>oa:hasStartSelector</td>
             <td><a href="#selector-instant"><code>edu:InstantSelector</code></a></td>
-            <td>✔︎</td>
             <td>The initial instant of the selected interval.</td>
           </tr>
           <tr>
             <td>oa:hasEndSelector</td>
             <td><a href="#selector-instant"><code>edu:InstantSelector</code></a></td>
-            <td>✔︎</td>
             <td>The final instant of the selected interval.</td>
           </tr>
         </tbody>
