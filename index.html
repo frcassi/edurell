@@ -1526,7 +1526,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         A video lesson, but more in general every long-form informative content, may be about different concepts, which are developed along the content. Concepts may intertwine with one another, so that some parts of the resource may be about more than one concept at a time.
       </p>
       <p>
-        The Concept Annotation is used to annotate a portion of the video with the concept it's about. The combination of all annotations of this type provides a complete map of all concepts which are explained, with the possibility for concepts to be repeated throughout the video.
+        The Concept Annotation is used to annotate a portion of the video with the concept it's about. It is possible to specify whether a segment of video contains a definition of a concept or an expansion of it, for example when adding details to a previously introduced one. The combination of all annotations of this type provides a complete map of all concepts which are explained, with the possibility for concepts to be repeated throughout the video.
       </p>
       <div class="diagram_img">
         <img src="images/annotation-concept.png" alt="concept annotation" longdesc="#annotation-concept">
@@ -1563,6 +1563,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
             <td><code>oa:SpecificResource</code></td>
             <td>The segment of the video (and, optionally, the associated portion of text) of which the annotation states the topic. Check out <a href="#annotation-concept-target">2.2.1 Target</a>
             </td>
+          </tr>
+          <tr>
+            <td>skos:note</td>
+            <td>"conceptDefinition" <i>or</i> "conceptExpansion"</td>
+            <td>A literal expressing whether the annotated segment is defining the specified concept (conceptDefinition) or is adding details to a concept which (presumably) has been already introduced (conceptExpansion).</td>
           </tr>
         </tbody>
       </table>
@@ -1635,6 +1640,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <span class="w">                </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"00:08:45^^xsd:dateTime"</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">                </span><span class="nn">edu:</span><span class="nt">conllSentId</span><span class="w"> </span><span class="s">5</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">                </span><span class="nn">edu:</span><span class="nt">conllWordId</span><span class="w"> </span><span class="s">2</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nn">skos:</span><span class="nt">note</span><span class="w"> </span><span class="s">"conceptDefinition"</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/person1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">created</span><span class="w"> </span><span class="s">"2021-04-18T12:10:04Z"</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
